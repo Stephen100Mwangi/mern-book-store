@@ -1,0 +1,16 @@
+.homepage{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+.imagecontainer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1000;
+  }
+.imagecontainer img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}  
