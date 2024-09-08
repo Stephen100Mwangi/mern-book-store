@@ -34,7 +34,7 @@ router.post("/", async (req,res) => {
 });
 
 
-// Fetch boooks
+// Fetch books
 router.get("/", async(req,res) => {
     try {
         const books = await Book.find({});
