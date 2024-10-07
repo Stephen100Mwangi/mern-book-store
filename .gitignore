@@ -1,0 +1,29 @@
+# Backend
+SERVER/node_modules
+SERVER/.env
+SERVER/dist
+SERVER/build
+
+# Frontend
+client/node_modules
+client/.env
+client/dist
+client/build
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: Database files if any
+*.sqlite
+*.db
+
+# Optional: Coverage directory used by tools like istanbul
+coverage/

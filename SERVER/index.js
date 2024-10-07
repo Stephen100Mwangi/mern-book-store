@@ -1,8 +1,8 @@
 // Import express framework
 import express from 'express'
-import { PORT, MONGO_URL } from './config.js';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 // Import book route
 // import router from './Routes/booksRoutes.js';
@@ -13,6 +13,7 @@ import { Book } from './Models/BookModel.js';
 
 // initialize app
 const app = express();
+dotenv.config();
 
 // To allow JSON content
 app.use(express.json());
@@ -25,13 +26,13 @@ app.get("/", (req,res)=>{
 
 app.use("/books", booksRouter);
 // To connect to mongoose
-mongoose.connect(MONGO_URL).then(() => {
+mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("Successful connection to database");
 
     // The app should only listen to PORT when connection is successful
 
     // Listen to PORT
-app.listen(PORT, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log(`Server running on http://localhost:${PORT}`);
 })
 
