@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Spinner from '../Components/Spinner'
 import BackButton from '../Components/BackButton'
 
 const ShowBooks = () => {
+     const localURL = import.meta.env.VITE_LOCAL_URL;
+    const remoteURL = import.meta.env.VITE_REMOTE_URL;
+    const baseURL = localURL || remoteURL;
 
     const [book,setBook] = useState({});
     const [isLoading,setLoading] = useState(false);
@@ -14,14 +17,14 @@ const ShowBooks = () => {
 
     useEffect(()=>{
         setLoading(true);
-        axios.get(`http://localhost:5555/books/${id}`)
+        axios.get(`${baseURL}/books/${id}`)
         .then((response) =>{
             setBook(response.data);
             setLoading(false);
         }).catch((error) => {
             console.log(error);
         })
-    }, [])
+    }, [baseURL,id])
   return (
     <div className='m-6'>
       <BackButton />

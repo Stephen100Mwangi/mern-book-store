@@ -1,10 +1,13 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../Components/BackButton';
 import Spinner from '../Components/Spinner';
 
 const UpdateBook = () => {
+   const localURL = import.meta.env.VITE_LOCAL_URL;
+    const remoteURL = import.meta.env.VITE_REMOTE_URL;
+    const baseURL = localURL || remoteURL;
 
     // UseStates
     const [title, setTitle] = useState('');
@@ -20,7 +23,7 @@ const UpdateBook = () => {
       setLoading(true);
 
       // Fetch book
-      axios.get(`http://localhost:5555/books/${id}`).then((response) => {
+      axios.get(`${baseURL}/books/${id}`).then((response) => {
         setAuthor(response.data.author);
         setTitle(response.data.title);
         setPublish(response.data.publishYear);
@@ -31,9 +34,9 @@ const UpdateBook = () => {
       }).catch((error) =>{
         setLoading(false);
         console.log(error);
-        alert("Could not fetch book.An error occured")
+        alert("Could not fetch book.An error occurred")
       })
-    },[]);
+    },[baseURL,id]);
     
     const handleEditBook = () => {
         const data = {
@@ -44,7 +47,7 @@ const UpdateBook = () => {
         };
 
         setLoading(true);
-        axios.put(`http://localhost:5555/books/${id}`,data)
+        axios.put(`${baseURL}/books/${id}`,data)
         .then(() => {
             setLoading(false);
             alert("Book successfully updated");
@@ -74,7 +77,7 @@ const UpdateBook = () => {
                 <label htmlFor="pages" className="text-xl mr-4 text-gray-500">Pages</label>
                 <input type="text" className="border-2 border-gray-500 px-4 py-2 w-full" value={pages} onChange={(e)=>setPages(e.target.value)}/>
 
-                <button className='p-2 px-3 my-8 mx-auto bg-sky-300 w-fit hover:rounded-full' onClick={handleEditBook}>Upadate Book</button>
+                <button className='p-2 px-3 my-8 mx-auto bg-sky-300 w-fit hover:rounded-full' onClick={handleEditBook}>Update Book</button>
             </div>
         </div>
       

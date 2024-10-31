@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Spinner from '../Components/Spinner'
 import axios from 'axios'
@@ -10,6 +10,10 @@ import './styles.css'
 
 const Home = () => {
 
+    const localURL = import.meta.env.VITE_LOCAL_URL;
+    const remoteURL = import.meta.env.VITE_REMOTE_URL;
+    const baseURL = localURL || remoteURL;
+
     // Books
     const [books,setBooks] = useState([]);
     const [isLoading,setLoading] = useState(false);
@@ -18,14 +22,14 @@ const Home = () => {
         setLoading(true);
 
         // Fetch books
-        axios.get('http://localhost:5555/books').then((response)=>{
+        axios.get(`${baseURL}/books`).then((response)=>{
             setBooks(response.data.data)
             setLoading(false);
         }).catch((error) =>{
             console.log(error);
             setLoading(false);
         })
-    },[])
+    },[baseURL])
     // const time = new Date();
   return (
     <div className='homepage'>

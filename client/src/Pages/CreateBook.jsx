@@ -7,6 +7,11 @@ import Spinner from '../Components/Spinner';
 
 const CreateBook = () => {
 
+    const localURL = import.meta.env.VITE_LOCAL_URL;
+    const remoteURL = import.meta.env.VITE_REMOTE_URL;
+    const baseURL = localURL || remoteURL;
+
+
     // UseStates
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -24,10 +29,10 @@ const CreateBook = () => {
         }
 
         setLoading(true);
-        axios.post("http://localhost:5555/books", data)
+        axios.post(`${baseURL}/books`, data)
         .then(() => {
             setLoading(false);
-            alert("Book succees fully added");
+            alert("Book success fully added");
             navigate('/');
         }).catch((error) =>{
             setLoading(false);
@@ -48,7 +53,7 @@ const CreateBook = () => {
                 <label htmlFor="author" className="text-xl mr-4 text-gray-500">Author</label>
                 <input type="text" className="border-2 border-gray-500 px-4 py-2 w-full" value={author} onChange={(e)=>setAuthor(e.target.value)}/>
 
-                <label htmlFor="yearpublished" className="text-xl mr-4 text-gray-500">Year Published</label>
+                <label htmlFor="yearPublished" className="text-xl mr-4 text-gray-500">Year Published</label>
                 <input type="text" className="border-2 border-gray-500 px-4 py-2 w-full" value={publishYear} onChange={(e)=>setPublish(e.target.value)}/>
 
                 <label htmlFor="pages" className="text-xl mr-4 text-gray-500">Pages</label>
